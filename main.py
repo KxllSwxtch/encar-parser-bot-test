@@ -122,8 +122,9 @@ print(get_ip())
 def get_car_info(url):
     global car_id_external
 
+    driver = create_driver()
+
     try:
-        driver = create_driver()
         solver = TwoCaptcha("89a8f41a0641f085c8ca6e861e0fa571")
 
         is_recaptcha_solved = True
