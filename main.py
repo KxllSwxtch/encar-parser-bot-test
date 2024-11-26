@@ -175,7 +175,7 @@ def get_car_info(url):
 
 # Обработчик команды /start
 async def start(update: Update, context: CallbackContext):
-    await update.message.reply_text("Привет! Отправь ссылку на автомобиль.")
+    await update.message.reply_text("Отправьте ссылку на автомобиль с сайта encar")
 
 
 # Обработчик для ссылок на автомобиль
