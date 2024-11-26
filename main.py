@@ -120,9 +120,6 @@ def get_car_info(url):
 
         driver.get(url)
 
-        with open("test.html", "w+") as file:
-            file.write(driver.page_source)
-
         if "reCAPTCHA" in driver.page_source:
             print("Обнаружена reCAPTCHA, решаем...")
 
