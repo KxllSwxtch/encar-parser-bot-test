@@ -3,6 +3,7 @@ import re
 import requests
 import locale
 
+from keep_alive import keep_alive
 from telegram import Update
 from telegram.ext import (
     Application,
@@ -18,6 +19,8 @@ from selenium.common.exceptions import WebDriverException
 from twocaptcha import TwoCaptcha
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters
+
+keep_alive()
 
 # Set locale for number formatting
 try:
