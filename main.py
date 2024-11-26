@@ -108,6 +108,16 @@ def send_recaptcha_token(token):
         return False
 
 
+def get_ip():
+    response = requests.get("https://api.ipify.org?format=json")
+    ip = response.json()["ip"]
+    print(f"Current IP address: {ip}")
+    return ip
+
+
+print(get_ip())
+
+
 # Запуск браузера и получение токена reCAPTCHA
 def get_car_info(url):
     global car_id_external
