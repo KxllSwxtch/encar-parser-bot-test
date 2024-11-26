@@ -168,10 +168,11 @@ def get_car_info(url):
                 print(f"Ошибка при получении объема двигателя: {e}")
 
             print(car_date, car_price, car_engine_displacement)
+            driver.quit()
     except WebDriverException as e:
         print(f"Ошибка Selenium: {e}")
+        driver.quit()
 
-    driver.quit()
     return f"<b>{car_title}</b>\n\n Дата регистрации: {meta_data['WT.z_year']}/{meta_data['WT.z_month']}\nЦена: {format_number(int(car_price)*10000)} KRW\nОбъем двигателя: {format_number(int(car_engine_displacement))} cc"
 
 
