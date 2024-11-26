@@ -1,8 +1,0 @@
-services:
-  - type: web
-    name: telegram-bot
-    env: python
-    region: frankfurt # Или другой регион Render
-    plan: free # Бесплатный план
-    buildCommand: 'pip install -r requirements.txt'
-    startCommand: './start.sh'
