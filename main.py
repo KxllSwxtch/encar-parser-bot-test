@@ -1,8 +1,9 @@
-import time
+import os
 import re
 import requests
 import locale
 
+from flask import Flask
 from telegram import Update
 from telegram.ext import (
     Application,
@@ -211,5 +212,11 @@ def main():
     application.run_polling()
 
 
+app = Flask(__name__)
+
+
 if __name__ == "__main__":
-    main()
+    port = int(
+        os.environ.get("PORT", 5000)
+    )  # Возьмём порт из переменной окружения, если она есть
+    app.run(host="0.0.0.0", port=port)  # Слушаем на 0.0.0.0 и заданном порту
