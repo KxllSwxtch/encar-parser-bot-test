@@ -20,7 +20,10 @@ from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters
 
 # Set locale for number formatting
-locale.setlocale(locale.LC_ALL, "en_US.UTF-8")
+try:
+    locale.setlocale(locale.LC_ALL, "en_US.UTF-8")
+except locale.Error:
+    locale.setlocale(locale.LC_ALL, "C")  # Использует стандартную локаль
 
 # Токен вашего бота
 bot_token = "8122197139:AAESd2hmle6YJ8Qdvwbj2rAU1AHZI0tR-hA"
