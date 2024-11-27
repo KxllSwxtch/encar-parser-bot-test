@@ -191,6 +191,8 @@ def get_car_info(url):
         driver.quit()
         return "Произошла ошибка получения данных..."
 
+    return "Произошла ошибка получения данных...Попробуйте ещё раз"
+
 
 # Обработчик команды /start
 async def start(update: Update, context: CallbackContext):
