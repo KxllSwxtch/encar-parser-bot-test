@@ -189,7 +189,7 @@ def get_car_info(url):
     except WebDriverException as e:
         print(f"Ошибка Selenium: {e}")
         driver.quit()
-        return ""
+        return "Произошла ошибка получения данных..."
 
 
 # Обработчик команды /start
