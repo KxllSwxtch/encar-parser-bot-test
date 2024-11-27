@@ -34,8 +34,8 @@ solver = TwoCaptcha("89a8f41a0641f085c8ca6e861e0fa571")
 
 # Test proxies
 proxy = {
-    "http": "http://127.0.0.1:8888",
-    "https": "http://127.0.0.1:8888",
+    "http": "http://45.118.250.2:8000",
+    "https": "http://45.118.250.2:8000",
 }
 
 
@@ -57,7 +57,7 @@ def create_driver():
     chrome_options.add_argument("--disable-blink-features=AutomationControlled")
     chrome_options.add_argument("--enable-logging")
     chrome_options.add_argument("--v=1")
-    chrome_options.add_argument("--proxy-server=http://127.0.0.1:8888")
+    chrome_options.add_argument("--proxy-server=http://45.118.250.2:8000")
     chrome_options.add_argument("--remote-debugging-port=9222")
     chrome_options.add_argument(
         "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36"
