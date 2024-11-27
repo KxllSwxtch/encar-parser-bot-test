@@ -3,6 +3,7 @@ import re
 import requests
 import locale
 
+from urllib.parse import urlparse, parse_qs
 from telegram import Update
 from telegram.ext import (
     Application,
@@ -34,8 +35,8 @@ solver = TwoCaptcha("89a8f41a0641f085c8ca6e861e0fa571")
 
 # Test proxies
 proxy = {
-    "http": "http://45.118.250.2:8000",
-    "https": "http://45.118.250.2:8000",
+    "http": "http://B01vby:GBno0x@45.118.250.2:8000",
+    "https": "http://B01vby:GBno0x@45.118.250.2:8000",
 }
 
 
@@ -57,7 +58,7 @@ def create_driver():
     chrome_options.add_argument("--disable-blink-features=AutomationControlled")
     chrome_options.add_argument("--enable-logging")
     chrome_options.add_argument("--v=1")
-    chrome_options.add_argument("--proxy-server=http://45.118.250.2:8000")
+    chrome_options.add_argument("--proxy-server=http://B01vby:GBno0x@45.118.250.2:8000")
     chrome_options.add_argument("--remote-debugging-port=9222")
     chrome_options.add_argument(
         "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36"
@@ -88,13 +89,13 @@ def send_recaptcha_token(token):
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36",
         "Accept-Language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
         "Content-Type": "application/x-www-form-urlencoded",
-        "Referer": "https://www.encar.com/",
+        "Referer": "http://www.encar.com/index.do",
     }
 
     url = "https://www.encar.com/validation_recaptcha.do?method=v3"
     # Отправляем POST-запрос с токеном
     response = requests.post(
-        url, data=data, headers=headers, proxies=proxy, verify=False
+        url, data=data, headers=headers, proxies=proxy, verify=True
     )
 
     # Выводим ответ для отладки
@@ -120,7 +121,9 @@ def send_recaptcha_token(token):
 
 
 def get_ip():
-    response = requests.get("https://api.ipify.org?format=json")
+    response = requests.get(
+        "https://api.ipify.org?format=json", proxies=proxy, verify=True
+    )
     ip = response.json()["ip"]
     print(f"Current IP address: {ip}")
     return ip
@@ -131,22 +134,28 @@ print(get_ip())
 
 # Запуск браузера и получение токена reCAPTCHA
 def get_car_info(url):
+    global car_id_external
+
     print("\n\n#####################")
     print("Извлекаем данные об автомобиле...")
     print("#####################\n\n")
 
-    global car_id_external
-
     driver = create_driver()
+
+    # Извлекаем carid с URL encar
+    parsed_url = urlparse(url)
+    query_params = parse_qs(parsed_url.query)
+    car_id = query_params.get("carid", [None])[0]
 
     try:
         solver = TwoCaptcha("89a8f41a0641f085c8ca6e861e0fa571")
 
         is_recaptcha_solved = False
 
-        driver.get(url)
+        driver.get(f"http://www.encar.com/dc/dc_cardetailview.do?carid={car_id}")
 
-        print(driver.page_source)
+        with open("test.html", "w+") as file:
+            file.write(driver.page_source)
 
         if "reCAPTCHA" in driver.page_source:
             print("Обнаружена reCAPTCHA, решаем...")
