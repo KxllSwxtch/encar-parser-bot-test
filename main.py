@@ -57,9 +57,8 @@ def create_driver():
     chrome_options.add_argument("--disable-blink-features=AutomationControlled")
     chrome_options.add_argument("--enable-logging")
     chrome_options.add_argument("--v=1")
-    chrome_options.add_argument(
-        "--remote-debugging-port=9222"
-    )  # Установка порта отладки
+    chrome_options.add_argument("--proxy-server=http://127.0.0.1:8888")
+    chrome_options.add_argument("--remote-debugging-port=9222")
     chrome_options.add_argument(
         "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36"
     )
@@ -134,7 +133,7 @@ print(get_ip())
 def get_car_info(url):
     print("\n\n#####################")
     print("Извлекаем данные об автомобиле...")
-    print("\n\n#####################")
+    print("#####################\n\n")
 
     global car_id_external
 
