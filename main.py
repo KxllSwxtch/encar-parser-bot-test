@@ -51,6 +51,9 @@ def create_driver():
     chrome_options.add_argument("--enable-logging")
     chrome_options.add_argument("--v=1")
     chrome_options.add_argument(
+        "--remote-debugging-port=9222"
+    )  # Установка порта отладки
+    chrome_options.add_argument(
         "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36"
     )
 
