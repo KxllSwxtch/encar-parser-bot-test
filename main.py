@@ -32,6 +32,13 @@ bot_token = "8122197139:AAESd2hmle6YJ8Qdvwbj2rAU1AHZI0tR-hA"
 solver = TwoCaptcha("89a8f41a0641f085c8ca6e861e0fa571")
 
 
+# Test proxies
+proxy = {
+    "http": "http://127.0.0.1:8888",
+    "https": "http://127.0.0.1:8888",
+}
+
+
 # Форматирование больших значений
 def format_number(number):
     return locale.format_string("%d", number, grouping=True)
@@ -79,7 +86,7 @@ def extract_sitekey(driver, url):
 def send_recaptcha_token(token):
     data = {"token": token, "action": "/dc/dc_cardetailview.do"}
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36",
         "Accept-Language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
         "Content-Type": "application/x-www-form-urlencoded",
         "Referer": "https://www.encar.com/",
@@ -87,7 +94,9 @@ def send_recaptcha_token(token):
 
     url = "https://www.encar.com/validation_recaptcha.do?method=v3"
     # Отправляем POST-запрос с токеном
-    response = requests.post(url, data=data, headers=headers)
+    response = requests.post(
+        url, data=data, headers=headers, proxies=proxy, verify=False
+    )
 
     # Выводим ответ для отладки
     print("\n\nОтвет от сервера:")
@@ -123,6 +132,10 @@ print(get_ip())
 
 # Запуск браузера и получение токена reCAPTCHA
 def get_car_info(url):
+    print("\n\n#####################")
+    print("Извлекаем данные об автомобиле...")
+    print("\n\n#####################")
+
     global car_id_external
 
     driver = create_driver()
@@ -130,7 +143,7 @@ def get_car_info(url):
     try:
         solver = TwoCaptcha("89a8f41a0641f085c8ca6e861e0fa571")
 
-        is_recaptcha_solved = True
+        is_recaptcha_solved = False
 
         driver.get(url)
 
